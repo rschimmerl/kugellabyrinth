@@ -22,7 +22,9 @@
 
     // The watch id references the current `watchAcceleration`
     var watchID = null;
-
+    
+    var pause = false;
+    
     // Wait for Cordova to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -85,6 +87,9 @@
    }
    
    function moveBall() {
+      
+      if (pause == true) return;
+      
       pwidth = $("#drawarea").innerWidth();
       pheight = $("#drawarea").innerHeight();
       
@@ -186,6 +191,7 @@
          //console.log(c);
          
          $("#kugel").hide();
+         pause = true;
          $.mobile.changePage( "#dialogEnde", { role: "dialog" } );
       }
       
@@ -195,6 +201,7 @@
       if ( c.length > 0) {
          //Dialog oeffnen...
          //console.log( 'am Ziel ' );
+         pause = true;
          $.mobile.changePage( "#dialogPage", { role: "dialog" } );
       }
    }
@@ -238,6 +245,7 @@
    function reset() {
       $("#kugel").css( { left: 715, top:469 } );
       $("#kugel").show();
+      pause = false;
    }
    
     </script>
