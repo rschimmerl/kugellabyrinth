@@ -34,7 +34,7 @@
 	width:10px;
 	height: 10px;
 	position:absolute;
-	/* background: #C5AEF9; */
+	/*  background: #C5AEF9; */
 }
 #loch1 {
 	left: 181px;
@@ -96,7 +96,38 @@
 	left: 65px;
 	top: 209px;
 }
-
+#loch16 {
+	left: 60px;
+	top: 300px;
+}
+#loch17{
+	left: 62px;
+	top:458px;
+}
+#loch18 {
+	left: 224px;
+	top: 303px;
+}
+#loch19 {
+	left: 173px;
+	top: 457px;
+}
+#loch20 {
+	left: 301px;
+	top: 457px;
+}
+#loch21 {
+	left: 415px;
+	top:318px;
+}
+#loch22{
+	left: 465px;
+	top:391px;
+}
+#loch23 {
+	left: 415px;
+	top: 457px;
+}
 
 .hindernis {
 	position: absolute;
@@ -191,4 +222,70 @@
 	top: 398px;
 	width:58px;
 	height:34px;
+}
+#hindernis16 {
+	left: 498px;
+	top: 182px;
+	width:27px;
+	height:79px;
+}
+#hindernis17 {
+	left: 391px;
+	top: 263px;
+	width:135px;
+	height:26px;
+}
+#hindernis18 {
+	left: 362px;
+	top: 240px;
+	width:28px;
+	height:132px;
+}
+#hindernis19 {
+	left: 224px;
+	top: 241px;
+	width:165px;
+	height:27px;
+}
+#hindernis20 {
+	left: 195px;
+	top: 345px;
+	width:195px;
+	height:27px;
+}
+#hindernis21 {
+	left: 27px;
+	top: 241px;
+	width:136px;
+	height:30px;
+}
+#hindernis22 {
+	left: 90px;
+	top: 270px;
+	width:35px;
+	height:105px;
+}
+#hindernis23 {
+	left: 666px;
+	top: 423px;
+	width:36px;
+	height:80px;
+}
+#hindernis24 {
+	left: 90px;
+	top: 441px;
+	width:36px;
+	height:63px;
+}
+#hindernis25 {
+	left: 224px;
+	top: 434px;
+	width:33px;
+	height:70px;
+}
+#hindernis26 {
+	left: 360px;
+	top: 425px;
+	width:28px;
+	height:79px;
 }
