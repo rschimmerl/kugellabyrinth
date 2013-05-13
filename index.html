@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Kugel Labyrinth</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+      <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+      <link rel="stylesheet" href="my.css" />
+      <!-- 
+      <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js"></script>
+      <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>-->
+      <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+      <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+      <script type="text/javascript" charset="utf-8" src="js/jquery-1.9.1.js"></script> 
+      <script type="text/javascript" charset="utf-8" src="js/jquerycollision/jquery-collision.min.js"></script> 
+      
+      <script type="text/javascript" charset="utf-8">
+
+    // The watch id references the current `watchAcceleration`
+    var watchID = null;
+
+    // Wait for Cordova to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+    $(document).keypress(navigate);
+    
+    $(document).ready(function() {
+     
+    });
+    // Cordova is ready
+    //
+    function onDeviceReady() {
+        startWatch();
+    }
+
+    // Start watching the acceleration
+    //
+    function startWatch() {
+
+        // Update acceleration every 3 seconds
+        var options = { frequency: 100 };
+
+        watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+    }
+
+    // Stop watching the acceleration
+    //
+    function stopWatch() {
+        if (watchID) {
+            navigator.accelerometer.clearWatch(watchID);
+            watchID = null;
+        }
+    }
+   
+   var aX = 0;
+   var aY = 0;
+   var aZ = 0;
+   
+    // onSuccess: Get a snapshot of the current acceleration
+    //
+    function onSuccess(acceleration) {
+      
+      aX = acceleration.x;
+      aY = acceleration.y;
+      aZ = acceleration.z;
+      
+      moveBall();
+      
+      /* 
+       var element = document.getElementById('accelerometer');
+       element.innerHTML = 'Acceleration X: ' + acceleration.x + '<br />' +
+                            'Acceleration Y: ' + acceleration.y + '<br />' +
+                            'Acceleration Z: ' + acceleration.z + '<br />' +
+                            'Timestamp: '      + acceleration.timestamp + '<br />';
+      */
+    }
+   
+   
+   function runde(x) {
+      return Math.round( x );
+   }
+   
+   function moveBall() {
+      pwidth = $("#drawarea").innerWidth();
+      pheight = $("#drawarea").innerHeight();
+      
+      var position = $("#kugel").position();
+      //console.log(position);
+      
+      
+      xpos = Math.round(position.left);
+      ypos = Math.round(position.top);
+      
+      kwidth = $("#kugel").outerWidth();
+      kheight = $("#kugel").outerHeight();
+      
+      //console.log( "X:"  + xpos + " Y:" + ypos + " KH:" + kheight + " KB: " + kwidth + " PH:" + pheight + " PB:" + pwidth );
+      
+      faktor = 5;
+      xpos += faktor * runde( aX ) * -1 ;
+      ypos += faktor * runde( aY ) ;
+      
+      //console.log( "X:"  + xpos + " Y:" + ypos  );
+      
+      if ( xpos < 30 ) xpos = 30;
+      if ( xpos + kwidth > pwidth - 30 ) xpos = pwidth - kwidth - 30; 
+      
+     
+      if ( ypos < 30 ) ypos = 30;
+      if ( ypos + kheight > pheight - 30 ) ypos = pheight - 30 - kheight ;
+      //console.log( "X:"  + xpos + " Y:" + ypos  );
+      
+      $("#kugel").css( 'left', xpos );
+      $("#kugel").css( 'top', ypos );
+     
+      var hits = $("#kugel").collision('.hindernis', { mode: "collision", relative: "collider", directionData: "ddata", as: "<div/>" } );
+      if ( hits.length > 0 ) {
+         
+         var h = $(hits[0]);
+         //console.log(h);
+         var h_w = h.width();
+         var h_h = h.height();
+         //console.log(h_w + ":" + h_h) ;
+         
+         var dir = h.data("ddata");
+         //console.log(dir);
+         
+         switch (dir) {
+            case 'SW':
+               if (h_w >= h_h) {
+                  ypos -= h_h;
+               } else {
+                  xpos += h_w;
+               }
+               break;
+            case 'NW':
+               if (h_w >= h_h) {
+                  ypos += h_h;
+               } else {
+                  xpos += h_w;
+               }
+               break;
+            case 'W':
+               xpos += h_w;
+               break;
+            case 'NE':
+               if (h_w >= h_h) {
+                  ypos += h_h;
+               } else {
+                  xpos -= h_w;
+               }
+               break;
+            case 'SE':
+               if (h_w >= h_h) {
+                  ypos -= h_h;
+               } else {
+                  xpos -= h_w;
+               }
+               break;
+            case 'E':
+               xpos -= h_w;
+               break;
+            case 'S': 
+               ypos -= h_h;
+               break;
+            case 'N': 
+               ypos += h_h;
+               break;
+         }
+         
+         
+         $("#kugel").css( 'left', xpos );
+         $("#kugel").css( 'top', ypos );
+      }
+      
+      
+      /* Kollision mit Loch... */
+      var c = $("#kugel").collision('.loch');
+      
+      if ( c.length > 0) {
+         //console.log( 'Kollision mit ' );
+         //console.log(c);
+         
+         $("#kugel").hide();
+      }
+      
+   }
+   
+   // onError: Failed to get the acceleration
+    //
+    function onError() {
+        alert('onError!');
+    }
+   
+   function istHindernis(c) {
+      if ( c.length > 0 ) {
+         console.log( 'Kollision mit ' );
+         console.log(c);
+         return true;
+      } 
+      return false;
+   }
+   
+   function navigate(evt) {
+      aX = aY = 0;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      //console.log(charCode);
+      switch (charCode) {
+         case 37: //leftArr
+            aX = 2;
+            break;
+         case 39: //rightArr
+            aX = -2;
+            break;
+         case 38: //upArr
+            aY = -2;
+            break;
+         case 40: //downArr
+            aY = 2;
+            break;
+      }
+      moveBall();
+   }
+    </script>
+  </head>
+  <body>
+    <div id="drawarea">
+      <!-- <img src="img/labyrinth_main.jpg" usemap="#loecher" /> -->
+      <div id="kugel"></div>
+      
+      
+      <div class="loch" id="loch1"></div>
+      <div class="loch" id="loch2"></div>
+      <div class="loch" id="loch3"></div>
+      <div class="loch" id="loch4"></div>
+      <div class="loch" id="loch5"></div>
+      <div class="loch" id="loch6"></div>
+      <div class="loch" id="loch7"></div>
+      <div class="loch" id="loch8"></div>
+      <div class="loch" id="loch9"></div>
+      <div class="loch" id="loch10"></div>
+      <div class="loch" id="loch11"></div>
+      <div class="loch" id="loch12"></div>
+      <div class="loch" id="loch13"></div>
+      <div class="loch" id="loch14"></div>
+      <div class="loch" id="loch15"></div>
+      
+      <div class="hindernis" id="hindernis1"></div>
+      <div class="hindernis" id="hindernis2"></div>
+      <div class="hindernis" id="hindernis3"></div>
+      <div class="hindernis" id="hindernis4"></div>
+      <div class="hindernis" id="hindernis5"></div>
+      <div class="hindernis" id="hindernis6"></div>
+      <div class="hindernis" id="hindernis7"></div>
+      <div class="hindernis" id="hindernis8"></div>
+      <div class="hindernis" id="hindernis9"></div>
+      <div class="hindernis" id="hindernis10"></div>
+      <div class="hindernis" id="hindernis11"></div>
+      <div class="hindernis" id="hindernis12"></div>
+      <div class="hindernis" id="hindernis13"></div>
+      <div class="hindernis" id="hindernis14"></div>
+      <div class="hindernis" id="hindernis15"></div>
+    </div>
+    
+    <!--
+    <map id="loecher_map" name="loecher">
+      <area shape="circle" alt="" title="" coords="181,80,16" />
+      <area shape="circle" alt="" title="" coords="290,77,15" />
+      <area shape="circle" alt="" title="" coords="458,66,16" />
+      <area shape="circle" alt="" title="" coords="545,67,12" />
+      <area shape="circle" alt="" title="" coords="102,131,18" />
+      <area shape="circle" alt="" title="" coords="72,214,19" />
+      <area shape="circle" alt="" title="" coords="272,213,17" />
+      <area shape="circle" alt="" title="" coords="426,172,18" />
+      <area shape="circle" alt="" title="" coords="458,231,19" />
+      <area shape="circle" alt="" title="" coords="598,129,18" />
+      <area shape="circle" alt="" title="" coords="701,116,18" />
+      <area shape="circle" alt="" title="" coords="658,252,18" />
+      <area shape="circle" alt="" title="" coords="601,379,18" />
+      <area shape="circle" alt="" title="" coords="733,377,19" />
+      <area shape="circle" alt="" title="" coords="570,465,20" />
+      <area shape="circle" alt="" title="" coords="422,325,19" />
+      <area shape="circle" alt="" title="" coords="473,395,17" />
+      <area shape="circle" alt="" title="" coords="420,458,18" />
+      <area shape="circle" alt="" title="" coords="228,306,20" />
+      <area shape="circle" alt="" title="" coords="306,461,19" />
+      <area shape="circle" alt="" title="" coords="179,461,19" />
+      <area shape="circle" alt="" title="" coords="66,301,18" />
+      <area shape="circle" alt="" title="" coords="67,463,20" />
+      -->
+      <!-- Created by Online Image Map Editor (http://www.maschek.hu/imagemap/index) -->
+   <!--
+   </map>
+   -->
+  </body>
+</html>
