@@ -6,10 +6,10 @@
         id = "com.phonegap.hello-world"
         version = "1.0.0">
 
-    <name>Accelerometer Test</name>
+    <name>Kugellabyrinth</name>
 
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Lenke die Kugel ans Ziel...
     </description>
 
     <author href="http://193.170.245.138" email="r.schimmerl@gmx.at">
