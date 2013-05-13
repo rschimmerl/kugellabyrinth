@@ -8,12 +8,14 @@
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
       <link rel="stylesheet" href="my.css" />
-      <!-- 
+      <!-- -->
       <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js"></script>
-      <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>-->
+      <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
       <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
       <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+      <!--
       <script type="text/javascript" charset="utf-8" src="js/jquery-1.9.1.js"></script> 
+      -->
       <script type="text/javascript" charset="utf-8" src="js/jquerycollision/jquery-collision.min.js"></script> 
       
       <script type="text/javascript" charset="utf-8">
@@ -27,7 +29,7 @@
     $(document).keypress(navigate);
     
     $(document).ready(function() {
-     
+      $(".repeat").click( reset );
     });
     // Cordova is ready
     //
@@ -184,8 +186,17 @@
          //console.log(c);
          
          $("#kugel").hide();
+         $.mobile.changePage( "#dialogEnde", { role: "dialog" } );
       }
       
+      /* Kollision mit Ziel... */
+      var c = $("#kugel").collision( '#ziel' );
+      
+      if ( c.length > 0) {
+         //Dialog oeffnen...
+         //console.log( 'am Ziel ' );
+         $.mobile.changePage( "#dialogPage", { role: "dialog" } );
+      }
    }
    
    // onError: Failed to get the acceleration
@@ -223,95 +234,92 @@
       }
       moveBall();
    }
+   
+   function reset() {
+      $("#kugel").css( { left: 715, top:469 } );
+      $("#kugel").show();
+   }
+   
     </script>
   </head>
   <body>
-    <div id="drawarea">
-      <!-- <img src="img/labyrinth_main.jpg" usemap="#loecher" /> -->
-      <div id="kugel"></div>
+      <div data-role="page" id="page1">
+         <div id="drawarea">
+            <div id="kugel"></div>
+            <div id="ziel"></div>
+
+            <div class="loch" id="loch1"></div>
+            <div class="loch" id="loch2"></div>
+            <div class="loch" id="loch3"></div>
+            <div class="loch" id="loch4"></div>
+            <div class="loch" id="loch5"></div>
+            <div class="loch" id="loch6"></div>
+            <div class="loch" id="loch7"></div>
+            <div class="loch" id="loch8"></div>
+            <div class="loch" id="loch9"></div>
+            <div class="loch" id="loch10"></div>
+            <div class="loch" id="loch11"></div>
+            <div class="loch" id="loch12"></div>
+            <div class="loch" id="loch13"></div>
+            <div class="loch" id="loch14"></div>
+            <div class="loch" id="loch15"></div>
+            <div class="loch" id="loch16"></div>
+            <div class="loch" id="loch17"></div>
+            <div class="loch" id="loch18"></div>
+            <div class="loch" id="loch19"></div>
+            <div class="loch" id="loch20"></div>
+            <div class="loch" id="loch21"></div>
+            <div class="loch" id="loch22"></div>
+            <div class="loch" id="loch23"></div>
+
+            <div class="hindernis" id="hindernis1"></div>
+            <div class="hindernis" id="hindernis2"></div>
+            <div class="hindernis" id="hindernis3"></div>
+            <div class="hindernis" id="hindernis4"></div>
+            <div class="hindernis" id="hindernis5"></div>
+            <div class="hindernis" id="hindernis6"></div>
+            <div class="hindernis" id="hindernis7"></div>
+            <div class="hindernis" id="hindernis8"></div>
+            <div class="hindernis" id="hindernis9"></div>
+            <div class="hindernis" id="hindernis10"></div>
+            <div class="hindernis" id="hindernis11"></div>
+            <div class="hindernis" id="hindernis12"></div>
+            <div class="hindernis" id="hindernis13"></div>
+            <div class="hindernis" id="hindernis14"></div>
+            <div class="hindernis" id="hindernis15"></div>
+            <div class="hindernis" id="hindernis16"></div>
+            <div class="hindernis" id="hindernis17"></div>
+            <div class="hindernis" id="hindernis18"></div>
+            <div class="hindernis" id="hindernis19"></div>
+            <div class="hindernis" id="hindernis20"></div>
+            <div class="hindernis" id="hindernis21"></div>
+            <div class="hindernis" id="hindernis22"></div>
+            <div class="hindernis" id="hindernis23"></div>
+            <div class="hindernis" id="hindernis24"></div>
+            <div class="hindernis" id="hindernis25"></div>
+            <div class="hindernis" id="hindernis26"></div>
+         </div>
+      </div>
       
-      
-      <div class="loch" id="loch1"></div>
-      <div class="loch" id="loch2"></div>
-      <div class="loch" id="loch3"></div>
-      <div class="loch" id="loch4"></div>
-      <div class="loch" id="loch5"></div>
-      <div class="loch" id="loch6"></div>
-      <div class="loch" id="loch7"></div>
-      <div class="loch" id="loch8"></div>
-      <div class="loch" id="loch9"></div>
-      <div class="loch" id="loch10"></div>
-      <div class="loch" id="loch11"></div>
-      <div class="loch" id="loch12"></div>
-      <div class="loch" id="loch13"></div>
-      <div class="loch" id="loch14"></div>
-      <div class="loch" id="loch15"></div>
-      <div class="loch" id="loch16"></div>
-      <div class="loch" id="loch17"></div>
-      <div class="loch" id="loch18"></div>
-      <div class="loch" id="loch19"></div>
-      <div class="loch" id="loch20"></div>
-      <div class="loch" id="loch21"></div>
-      <div class="loch" id="loch22"></div>
-      <div class="loch" id="loch23"></div>
-      
-      <div class="hindernis" id="hindernis1"></div>
-      <div class="hindernis" id="hindernis2"></div>
-      <div class="hindernis" id="hindernis3"></div>
-      <div class="hindernis" id="hindernis4"></div>
-      <div class="hindernis" id="hindernis5"></div>
-      <div class="hindernis" id="hindernis6"></div>
-      <div class="hindernis" id="hindernis7"></div>
-      <div class="hindernis" id="hindernis8"></div>
-      <div class="hindernis" id="hindernis9"></div>
-      <div class="hindernis" id="hindernis10"></div>
-      <div class="hindernis" id="hindernis11"></div>
-      <div class="hindernis" id="hindernis12"></div>
-      <div class="hindernis" id="hindernis13"></div>
-      <div class="hindernis" id="hindernis14"></div>
-      <div class="hindernis" id="hindernis15"></div>
-      <div class="hindernis" id="hindernis16"></div>
-      <div class="hindernis" id="hindernis17"></div>
-      <div class="hindernis" id="hindernis18"></div>
-      <div class="hindernis" id="hindernis19"></div>
-      <div class="hindernis" id="hindernis20"></div>
-      <div class="hindernis" id="hindernis21"></div>
-      <div class="hindernis" id="hindernis22"></div>
-      <div class="hindernis" id="hindernis23"></div>
-      <div class="hindernis" id="hindernis24"></div>
-      <div class="hindernis" id="hindernis25"></div>
-      <div class="hindernis" id="hindernis26"></div>
-    </div>
-    
-    <!--
-    <map id="loecher_map" name="loecher">
-      <area shape="circle" alt="" title="" coords="181,80,16" />
-      <area shape="circle" alt="" title="" coords="290,77,15" />
-      <area shape="circle" alt="" title="" coords="458,66,16" />
-      <area shape="circle" alt="" title="" coords="545,67,12" />
-      <area shape="circle" alt="" title="" coords="102,131,18" />
-      <area shape="circle" alt="" title="" coords="72,214,19" />
-      <area shape="circle" alt="" title="" coords="272,213,17" />
-      <area shape="circle" alt="" title="" coords="426,172,18" />
-      <area shape="circle" alt="" title="" coords="458,231,19" />
-      <area shape="circle" alt="" title="" coords="598,129,18" />
-      <area shape="circle" alt="" title="" coords="701,116,18" />
-      <area shape="circle" alt="" title="" coords="658,252,18" />
-      <area shape="circle" alt="" title="" coords="601,379,18" />
-      <area shape="circle" alt="" title="" coords="733,377,19" />
-      <area shape="circle" alt="" title="" coords="570,465,20" />
-      <area shape="circle" alt="" title="" coords="422,325,19" />
-      <area shape="circle" alt="" title="" coords="473,395,17" />
-      <area shape="circle" alt="" title="" coords="420,458,18" />
-      <area shape="circle" alt="" title="" coords="228,306,20" />
-      <area shape="circle" alt="" title="" coords="306,461,19" />
-      <area shape="circle" alt="" title="" coords="179,461,19" />
-      <area shape="circle" alt="" title="" coords="66,301,18" />
-      <area shape="circle" alt="" title="" coords="67,463,20" />
-      -->
-      <!-- Created by Online Image Map Editor (http://www.maschek.hu/imagemap/index) -->
-   <!--
-   </map>
-   -->
+      <div data-role="page" id="dialogPage">
+         <div data-role="header">
+            <h2>Du bist am Ziel...</h2>
+         </div>
+         <div data-role="content">
+            <p>Willst du noch einmal Spielen?</p>
+            <a href="#page1" class="repeat" data-role="button" data-rel="back" data-theme="b">Noch einmal spielen...</a>       
+			   <a href="#page1" data-role="button" data-rel="back" data-theme="c">Abbrechen</a> 
+         </div>
+      </div>
+      <div data-role="page" id="dialogEnde">
+         <div data-role="header">
+            <h2>Leider verloren...</h2>
+         </div>
+         <div data-role="content">
+            <p>Willst du noch einmal Spielen?</p>
+            <a href="#page1" class="repeat" data-role="button" data-rel="back" data-theme="b">Noch einmal spielen...</a>       
+			   <a href="#page1" data-role="button" data-rel="back" data-theme="c">Abbrechen</a>
+         </div>
+      </div>
   </body>
 </html>

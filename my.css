@@ -13,12 +13,15 @@
 }
 
 #drawarea {
-   margin-top: 100px;
+   top:50%;
+   left:50%;
+   margin-top: -267px; 
+   margin-left: -400px;
    width: 800px;
    height: 533px;
    /* border: 2px solid #72B735; */
    background: transparent url(img/labyrinth_main.jpg);
-   position: relative;
+   position: absolute;
 }
 #kugel {
    width: 30px;
@@ -29,7 +32,14 @@
    left:715px;
    background: transparent url(img/kugel_klein.png);
 }
-
+#ziel {
+   position: absolute;
+   width: 25px;
+   height: 25px;
+   left: 549px;
+   top: 213px;
+   /*    background: #C5AEF9; */
+}
 .loch {
 	width:10px;
 	height: 10px;
