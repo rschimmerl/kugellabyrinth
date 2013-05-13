@@ -30,8 +30,10 @@
     document.addEventListener("deviceready", onDeviceReady, false);
     $(document).keypress(navigate);
     
-    $(document).ready(function() {
-      $(".repeat").click( reset );
+   
+   $(document).ready(function() {
+      // $(".repeat").click( reset );
+   
     });
     // Cordova is ready
     //
@@ -320,10 +322,11 @@
 			   <a href="#page1" data-role="button" data-rel="back" data-theme="c">Abbrechen</a> 
          </div>
       </div>
+      
       <div data-role="page" id="dialogEnde" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
          <div data-role="header" data-theme="a" class="ui-corner-top">
             <h2>Leider verloren...</h2>
-         </div>s
+         </div>
          <div data-role="content">
             <p>Willst du noch einmal Spielen?</p>
             <a href="#page1" class="repeat" data-role="button" data-rel="back" data-theme="b">Noch einmal spielen...</a>       
