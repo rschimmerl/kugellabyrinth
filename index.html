@@ -182,9 +182,12 @@
          //console.log( 'Kollision mit ' );
          //console.log(c);
          
+         $("#kugel").css( { left: 715, top:469 } );
          $("#kugel").hide();
          pause = true;
+         $( "#verloren").show( );
          $("#btnReset").show();
+         
          //$.mobile.changePage( "dialog_verloren.html", { role: "dialog" } );
          return;
       }
@@ -196,7 +199,9 @@
          //Dialog oeffnen...
          //console.log( 'am Ziel ' );
          pause = true;
+         $("#kugel").css( { left: 715, top:469 } );
          $("#btnReset").show();
+         $( "#ende").show( );
          //$.mobile.changePage( "dialog_ziel.html", { role: "dialog" } );
          return;
       }
@@ -241,6 +246,8 @@
    function reset() {
       $("#kugel").css( { left: 715, top:469 } );
       $("#kugel").show();
+      $( "#ende" ).hide ();
+      $( "#verloren" ).hide ();
       pause = false;
    }
    
@@ -305,8 +312,11 @@
          </div>
          
          <div data-role="content">
-         <a id="btnReset" onclick="reset()" data-role="button" data-rel="back" data-theme="b">Noch einmal spielen...</a>       
-      </div>
+            <div id="ende">Du bist am Ziel...</div>
+            <div id="verloren">Du hast leider verloren...</div>
+            <a id="btnReset" onclick="reset()" data-role="button" data-rel="back" data-theme="b">Noch einmal spielen...</a>  
+      
+         </div>
       </div>
   </body>
 </html>

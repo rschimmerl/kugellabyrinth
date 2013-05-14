@@ -40,6 +40,35 @@
    top: 213px;
    /*    background: #C5AEF9; */
 }
+
+#verloren, #ende {
+	display:none;
+	width: 400px;
+	text-align:center;
+	font-size: 2em;
+	line-height: 4em;
+	padding:20px;
+	position: absolute;
+	z-index:5;
+    top:50%;
+	left:50%;
+	margin-top: -2em; 
+	margin-left: -200px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+
+
+}
+#ende {
+	background-color: #E1F4D2;
+	border:solid 1px #2de81c;
+}
+#verloren {
+	background-color: #F4E9D2;
+	border:solid 1px #F93822;
+}
+
 .loch {
 	width:10px;
 	height: 10px;
