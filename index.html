@@ -31,7 +31,7 @@
    
    $(document).keypress(navigate);
     
-   $(document).on('pageinit', function() {  reset();  } );
+   $(document).on('pageinit', function() {  $("#btnReset").hide();  } );
    
     // Cordova is ready
     //
@@ -184,7 +184,8 @@
          
          $("#kugel").hide();
          pause = true;
-         $.mobile.changePage( "dialog_verloren.html", { role: "dialog" } );
+         $("#btnReset").show();
+         //$.mobile.changePage( "dialog_verloren.html", { role: "dialog" } );
          return;
       }
       
@@ -195,7 +196,8 @@
          //Dialog oeffnen...
          //console.log( 'am Ziel ' );
          pause = true;
-         $.mobile.changePage( "dialog_ziel.html", { role: "dialog" } );
+         $("#btnReset").show();
+         //$.mobile.changePage( "dialog_ziel.html", { role: "dialog" } );
          return;
       }
    }
@@ -301,6 +303,10 @@
             <div class="hindernis" id="hindernis25"></div>
             <div class="hindernis" id="hindernis26"></div>
          </div>
+         
+         <div data-role="content">
+         <a id="btnReset" onclick="reset()" data-role="button" data-rel="back" data-theme="b">Noch einmal spielen...</a>       
+      </div>
       </div>
   </body>
 </html>
