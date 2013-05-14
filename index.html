@@ -27,14 +27,12 @@
     
     // Wait for Cordova to load
     //
-    document.addEventListener("deviceready", onDeviceReady, false);
-    $(document).keypress(navigate);
+   document.addEventListener("deviceready", onDeviceReady, false);
+   
+   $(document).keypress(navigate);
     
    $(document).on('pageinit', function() {  reset();  } );
    
-   $(document).ready(function() {
-      
-    });
     // Cordova is ready
     //
     function onDeviceReady() {
@@ -73,14 +71,7 @@
       aZ = acceleration.z;
       
       moveBall();
-      
-      /* 
-       var element = document.getElementById('accelerometer');
-       element.innerHTML = 'Acceleration X: ' + acceleration.x + '<br />' +
-                            'Acceleration Y: ' + acceleration.y + '<br />' +
-                            'Acceleration Z: ' + acceleration.z + '<br />' +
-                            'Timestamp: '      + acceleration.timestamp + '<br />';
-      */
+   
     }
    
    
@@ -98,7 +89,6 @@
       var position = $("#kugel").position();
       //console.log(position);
       
-      
       xpos = Math.round(position.left);
       ypos = Math.round(position.top);
       
@@ -107,7 +97,7 @@
       
       //console.log( "X:"  + xpos + " Y:" + ypos + " KH:" + kheight + " KB: " + kwidth + " PH:" + pheight + " PB:" + pwidth );
       
-      faktor = 5;
+      faktor = 10;
       xpos += faktor * runde( aX ) * -1 ;
       ypos += faktor * runde( aY ) ;
       
@@ -194,7 +184,8 @@
          
          $("#kugel").hide();
          pause = true;
-         $.mobile.changePage( "dialog_ziel.html", { role: "dialog" } );
+         $.mobile.changePage( "dialog_verloren.html", { role: "dialog" } );
+         return;
       }
       
       /* Kollision mit Ziel... */
@@ -204,7 +195,8 @@
          //Dialog oeffnen...
          //console.log( 'am Ziel ' );
          pause = true;
-         $.mobile.changePage( "dialog_verloren.html", { role: "dialog" } );
+         $.mobile.changePage( "dialog_ziel.html", { role: "dialog" } );
+         return;
       }
    }
    
