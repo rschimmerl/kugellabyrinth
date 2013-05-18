@@ -11,13 +11,9 @@
       <!-- -->
       <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js"></script>
       <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-      <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
       <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-      <!--
-      <script type="text/javascript" charset="utf-8" src="js/jquery-1.9.1.js"></script> 
-      -->
       <script type="text/javascript" charset="utf-8" src="js/jquerycollision/jquery-collision.min.js"></script> 
-      
+   
       <script type="text/javascript" charset="utf-8">
 
     // The watch id references the current `watchAcceleration`
@@ -31,18 +27,18 @@
    
    $(document).keypress(navigate);
     
-   $(document).on('pageinit', function() {  $("#btnReset").hide();  } );
+   $(document).on('pageinit', function() {  reset();  } );
    
     // Cordova is ready
     //
     function onDeviceReady() {
-        startWatch();
+      startWatch();
     }
 
     // Start watching the acceleration
     //
     function startWatch() {
-
+         if ( ! navigator.accelerometer ) return;
         // Update acceleration every 3 seconds
         var options = { frequency: 100 };
 
@@ -97,7 +93,7 @@
       
       //console.log( "X:"  + xpos + " Y:" + ypos + " KH:" + kheight + " KB: " + kwidth + " PH:" + pheight + " PB:" + pwidth );
       
-      faktor = 10;
+      faktor = 5;
       xpos += faktor * runde( aX ) * -1 ;
       ypos += faktor * runde( aY ) ;
       
@@ -185,10 +181,9 @@
          $("#kugel").css( { left: 715, top:469 } );
          $("#kugel").hide();
          pause = true;
-         $( "#verloren").show( );
-         $("#btnReset").show();
+         stopWatch();
          
-         //$.mobile.changePage( "dialog_verloren.html", { role: "dialog" } );
+         $.mobile.changePage( "dialog_verloren.html", { role: "dialog" } );
          return;
       }
       
@@ -200,9 +195,8 @@
          //console.log( 'am Ziel ' );
          pause = true;
          $("#kugel").css( { left: 715, top:469 } );
-         $("#btnReset").show();
-         $( "#ende").show( );
-         //$.mobile.changePage( "dialog_ziel.html", { role: "dialog" } );
+         stopWatch();
+         $.mobile.changePage( "dialog_ziel.html", { role: "dialog" } );
          return;
       }
    }
@@ -246,9 +240,10 @@
    function reset() {
       $("#kugel").css( { left: 715, top:469 } );
       $("#kugel").show();
-      $( "#ende" ).hide ();
-      $( "#verloren" ).hide ();
       pause = false;
+      if ( ! watchID) {
+         startWatch();
+      }
    }
    
     </script>
@@ -309,13 +304,6 @@
             <div class="hindernis" id="hindernis24"></div>
             <div class="hindernis" id="hindernis25"></div>
             <div class="hindernis" id="hindernis26"></div>
-         </div>
-         
-         <div data-role="content">
-            <div id="ende">Du bist am Ziel...</div>
-            <div id="verloren">Du hast leider verloren...</div>
-            <a id="btnReset" onclick="reset()" data-role="button" data-rel="back" data-theme="b">Noch einmal spielen...</a>  
-      
          </div>
       </div>
   </body>
