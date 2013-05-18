@@ -30,6 +30,8 @@ permission on your app, which PhoneGap requires.
 
     <preference name="permissions" value="none"/>
 -->
+   
+   <preference name="orientation" value="landscape" />
     <!-- Plugins can also be added here. -->
     <!--
 <gap:plugin name="Example" />
